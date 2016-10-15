@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Myfood</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">환경설정</string>
+    <string name="action_info">앱정보</string>
+</resources>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="org.androidtown.myfood.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/food_search"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:hint="뭐먹을까요?"
+        android:radius="10dp"
+        android:paddingLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_corner"/>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/food_search">
+        <TableRow>
+            <LinearLayout>
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/main_icon"
+                    android:layout_margin="20dp"
+                    android:text="중식"
+                    android:textSize="40dp"
+                    android:textColor="#FFFFFF"/>
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/main_icon"
+                    android:layout_margin="20dp"
+                    android:text="일식"
+                    android:textSize="40dp"
+                    android:textColor="#FFFFFF"/>
+
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/main_icon"
+                    android:layout_margin="20dp"
+                    android:text="저기어때"
+                    android:textSize="15dp"
+                    android:textColor="#FFFFFF"
+                    />
+            </LinearLayout>
+        </TableRow>
+
+
+        <TableRow>
+            <LinearLayout>
+
+            </LinearLayout>
+
+        </TableRow>
+    </TableLayout>
+
+
+</RelativeLayout>
