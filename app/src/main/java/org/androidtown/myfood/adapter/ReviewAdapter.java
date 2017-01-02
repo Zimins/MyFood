@@ -5,13 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.androidtown.myfood.ListItem;
 import org.androidtown.myfood.R;
+import org.androidtown.myfood.item.ReviewItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,12 +21,12 @@ import java.util.List;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder>{
 
 
+    private Context context;
+    private List<ReviewItem> items;
+    private int itemLayout;
 
-    private static final String TAG = "ListAdapter";
-    private Context context; private List<ListItem> items; private int itemLayout;
 
-
-    public ReviewAdapter(Context context, List<ListItem> items, int itemLayout) {
+    public ReviewAdapter(Context context, List<ReviewItem> items, int itemLayout) {
         this.context = context;
         this.items = items;
         this.itemLayout = itemLayout;
@@ -41,9 +41,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.text.setText(items.get(position).getText());
-        holder.image.setImageResource(items.get(position).getImage());
-
+        holder.name.setText(items.get(position).name+"님");
+        holder.text.setText(items.get(position).text);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +64,18 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         return items.size();
     }
 
+    public void setItems(ArrayList<ReviewItem> items){
+        this.items = items;
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView image;
+        public TextView name;
         public TextView text;
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            name= (TextView) itemView.findViewById(R.id.name);
             text = (TextView) itemView.findViewById(R.id.text);
         }
     }

@@ -1,0 +1,46 @@
+package org.androidtown.myfood.remote;
+
+import org.androidtown.myfood.item.RestaurantItem;
+import org.androidtown.myfood.item.ReviewItem;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+
+/**
+ * Created by Zimincom on 2016. 11. 23..
+ */
+
+public interface RemoteService {
+
+    String BASE_URL = "http://172.30.1.50:3000";
+    String MEMBER_ICON_URL = BASE_URL + "/member/";
+    String IMAGE_URL = BASE_URL + "/img/";
+
+
+    @POST("/restaurant/info/review")
+    Call<String> insertReview(@Body ReviewItem reviewItem);
+
+    @GET("/restaurant/info/{id}")
+    Call<RestaurantItem> getRaiting(@Path("id") int id);
+
+    @FormUrlEncoded
+    @POST("/restaurant/category")
+    Call<ArrayList<RestaurantItem>> getRestaurantByTag(@Field("category") String category);
+
+    @FormUrlEncoded
+    @POST("/restaurant/keyword")
+    Call<ArrayList<RestaurantItem>> getRestaurantByKey(@Field("keyword") String keyword);
+
+    @FormUrlEncoded
+    @POST("/restaurant/review")
+    Call<ArrayList<ReviewItem>> getReviewById(@Field("id") int id);
+
+
+}

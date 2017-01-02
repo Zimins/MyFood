@@ -14,14 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.androidtown.myfood.adapter.ListAdapter;
-import org.androidtown.myfood.item.ListItem;
+import org.androidtown.myfood.adapter.ReviewAdapter;
 import org.androidtown.myfood.item.ReviewItem;
 import org.androidtown.myfood.remote.RemoteService;
 import org.androidtown.myfood.remote.ServiceGenerator;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,9 +31,14 @@ import retrofit2.Response;
 
 public class RestaurantReivewFragment extends Fragment {
 
+    int restaurantId;
     EditText name;
     EditText review;
+    ArrayList<ReviewItem> reviewItems = new ArrayList<>();
+    RecyclerView recyclerView;
+    ReviewAdapter adapter;
     ReviewItem reviewItem;
+
 
     @Nullable
     @Override
@@ -46,12 +49,14 @@ public class RestaurantReivewFragment extends Fragment {
 
         name = (EditText)rootView.findViewById(R.id.name_input);
         review =(EditText)rootView.findViewById(R.id.review_input);
+        Log.d("reiveOncreate",getArguments().toString());
+        restaurantId = getArguments().getInt("id");
         reviewItem = new ReviewItem();
+        setReviewItems(restaurantId);
 
-        //bottom grid view
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.review_list);
-        ListAdapter adapter = new ListAdapter(rootView.getContext(), createItemList(), R.layout.categ_item);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.review_list);
+        adapter = new ReviewAdapter(rootView.getContext(), reviewItems, R.layout.review_item);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -64,7 +69,7 @@ public class RestaurantReivewFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                reviewItem.restauranId = 1;
+                reviewItem.restaurant_Id = restaurantId;
                 reviewItem.name = name.getText().toString();
                 reviewItem.text = review.getText().toString();
 
@@ -78,7 +83,7 @@ public class RestaurantReivewFragment extends Fragment {
 
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-
+                        setReviewItems(restaurantId);
                         Toast.makeText(rootView.getContext(),"send done",Toast.LENGTH_LONG).show();
                     }
 
@@ -88,22 +93,46 @@ public class RestaurantReivewFragment extends Fragment {
                         Toast.makeText(rootView.getContext(),"send failed",Toast.LENGTH_LONG).show();
                     }
                 });
+
                 name.setText("");
                 review.setText("");
+
             }
+
         });
         return rootView;
     }
 
 
-    private List<ListItem> createItemList() {
-        List<ListItem> items = new ArrayList<ListItem>();
-        for (int i = 0; i < 20; i++) {
-            items.add(new ListItem("아이템 " + i, R.mipmap.ic_launcher));
-        }
-        return items;
-    }
+    public void setReviewItems(int id){
 
+        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
+        Call<ArrayList<ReviewItem>> call = remoteService.getReviewById(id);
+
+        call.enqueue(new Callback<ArrayList<ReviewItem>>() {
+            @Override
+                public void onResponse(Call<ArrayList<ReviewItem>> call, Response<ArrayList<ReviewItem>> response) {
+
+                if(response.isSuccessful()) {
+                    Log.d("setReviewItems",response.body().toString());
+                    reviewItems = response.body();
+                    adapter.setItems(reviewItems);
+                    recyclerView.setAdapter(adapter);
+
+                    Log.d("setReiew","success");
+                }else{
+                    Log.d("setReiew","not success");
+                }
+                Log.d("setReview","send good");
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ReviewItem>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+    }
 
 
 }

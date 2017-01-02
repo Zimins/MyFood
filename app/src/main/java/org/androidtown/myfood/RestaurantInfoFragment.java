@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.androidtown.myfood.item.RestaurantItem;
-import org.androidtown.myfood.remote.RemoteService;
-import org.androidtown.myfood.remote.ServiceGenerator;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import static org.androidtown.myfood.R.id.map;
 
 /**
@@ -34,8 +25,6 @@ import static org.androidtown.myfood.R.id.map;
 
 public class RestaurantInfoFragment extends Fragment implements OnMapReadyCallback {
 
-
-    GoogleMap googleMap;
     RatingBar ratingBar;
     int rating =1;
 
@@ -53,11 +42,10 @@ public class RestaurantInfoFragment extends Fragment implements OnMapReadyCallba
             fm.beginTransaction().replace(map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
-    //?
+
 
         ratingBar = (RatingBar)rootView.findViewById(R.id.rating);
-        int raitungNum =  getRaitingFromServer(3);
-        ratingBar.setRating((float)raitungNum);
+
 
         return rootView;
 
@@ -83,31 +71,12 @@ public class RestaurantInfoFragment extends Fragment implements OnMapReadyCallba
             }
         });
 
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+
 
 
     }
 
-    public int getRaitingFromServer(int res_id){
-        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
-        RestaurantItem restaurantItem = new RestaurantItem();
 
-
-        Log.i("getraiting","res_id");
-        Call<RestaurantItem> call = remoteService.getRaiting(restaurantItem.id);
-
-        Log.i("getraiting","res_id sent");
-        call.enqueue(new Callback<RestaurantItem>() {
-            @Override
-            public void onResponse(Call<RestaurantItem> call, Response<RestaurantItem> response) {
-                Log.i("ratingget","succecd");
-            }
-
-            @Override
-            public void onFailure(Call<RestaurantItem> call, Throwable t) {
-                Log.i("ratingget","fail");
-            }
-        });
-        return rating;
-    }
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/intro_img">
+
+
+
+    <Button
+        android:id="@+id/none_login"
+        android:text="로그인 안할래요"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"/>
+
+
+    <Button
+        android:id="@+id/sign_in"
+        android:text="계정 만들기"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@id/none_login"/>
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/flogin_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/sign_in"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

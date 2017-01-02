@@ -1,72 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_main"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/colorBackground"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="bottom"
+    android:screenOrientation="portrait"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.androidtown.myfood.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+    sothree:umanoPanelHeight="200dp"
+    sothree:umanoShadowHeight="4dp"
+    sothree:umanoParallaxOffset="100dp"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoOverlay="true"
+    sothree:umanoScrollableView="@+id/bot_list">
 
-    <EditText xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/food_search"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:hint="뭐먹을까요?"
-        android:radius="10dp"
-        android:paddingLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_corner"/>
-    <TableLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/food_search">
-        <TableRow>
-            <LinearLayout>
-                <Button
-                    android:id="@+id/button1"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/main_icon"
-                    android:layout_margin="20dp"
-                    android:text="중식"
-                    android:textSize="40dp"
-                    android:textColor="#FFFFFF"/>
-                <Button
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/main_icon"
-                    android:layout_margin="20dp"
-                    android:text="일식"
-                    android:textSize="40dp"
-                    android:textColor="#FFFFFF"/>
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-                <Button
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/main_icon"
-                    android:layout_margin="20dp"
-                    android:text="저기어때"
-                    android:textSize="15dp"
-                    android:textColor="#FFFFFF"
-                    />
-            </LinearLayout>
-        </TableRow>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/hot_pager"
+            android:layout_width="match_parent"
+            android:layout_height="355dp">
+        </android.support.v4.view.ViewPager>
 
 
-        <TableRow>
-            <LinearLayout>
+        <EditText xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/food_search"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:hint="  검색  "
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:layout_centerHorizontal="true"
+            android:elevation="2dp"
+            android:layout_margin="5dp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_corner"
+            android:transitionName="shared_editText"/>
 
-            </LinearLayout>
-
-        </TableRow>
-    </TableLayout>
+    </RelativeLayout>
 
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="false"
+        android:id="@+id/dragView">
+
+        <LinearLayout
+            android:id="@+id/list_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimaryDark">
+
+            <TextView
+                android:id="@+id/bottom_info"
+                android:text="내 근처 맛집"
+                android:textColor="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"/>
+
+        </LinearLayout>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bot_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/list_title">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
