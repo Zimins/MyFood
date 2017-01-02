@@ -22,12 +22,20 @@
     android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/id_set"
+        android:id="@+id/group_set"
         android:layout_margin="1dp"
+        android:text="그룹설정"
         android:background="@color/buttoncolor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/select_group"
+        android:layout_margin="1dp"
+        android:text="그룹선택"
+        android:background="@color/buttoncolor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>
