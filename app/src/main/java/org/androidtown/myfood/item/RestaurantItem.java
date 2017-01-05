@@ -13,9 +13,10 @@ public class RestaurantItem implements Serializable{
     public int raiting;
     public String imgSrc;
     public String contact;
+    public double user_distance_meter;
 
-//  public int latitude;
-//  public int longtitude;
+    public int latitude;
+    public int longtitude;
 
     public RestaurantItem(int id,String name,String imgSrc){
         this.id = id;

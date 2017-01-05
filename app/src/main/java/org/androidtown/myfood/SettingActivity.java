@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.androidtown.myfood.item.LocationItem;
+
 public class SettingActivity extends AppCompatActivity {
 
     Button notifySetButton ;
-    Button idSetButton ;
+    Button groupSetButton ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,12 +25,16 @@ public class SettingActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                Log.d("location", "button clicked");
+                Log.d("location", String.valueOf(LocationItem.knownLatitude)+String.valueOf(LocationItem.knownLongitude));
                 finish();
             }
         });
 
         notifySetButton = (Button)findViewById(R.id.notify_button);
-        idSetButton = (Button)findViewById(R.id.id_set);
+        groupSetButton = (Button)findViewById(R.id.group_set);
 
         initSetButtons();
 
@@ -49,11 +56,12 @@ public class SettingActivity extends AppCompatActivity {
         });
 
 
-        idSetButton.setOnClickListener(new View.OnClickListener() {
+        groupSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingActivity.this,SigninActivity.class);
                 startActivity(intent);
+
             }
 
         });
@@ -69,7 +77,7 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         if(System.getProperty("userID")!=null){
-            idSetButton.setText("현재이름: "+ System.getProperty("userID")+"입니다.변경원하면클릭");
+            groupSetButton.setText("현재이름: "+ System.getProperty("userID")+"입니다.변경원하면클릭");
         }
     }
 }

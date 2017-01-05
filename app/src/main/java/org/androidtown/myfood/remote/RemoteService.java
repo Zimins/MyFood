@@ -12,6 +12,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Zimincom on 2016. 11. 23..
@@ -19,7 +20,7 @@ import retrofit2.http.Path;
 
 public interface RemoteService {
 
-    String BASE_URL = "http://172.30.1.50:3000";
+    String BASE_URL = "http://sample-env.3x7naibynm.us-west-2.elasticbeanstalk.com/";
     String MEMBER_ICON_URL = BASE_URL + "/member/";
     String IMAGE_URL = BASE_URL + "/img/";
 
@@ -41,6 +42,10 @@ public interface RemoteService {
     @FormUrlEncoded
     @POST("/restaurant/review")
     Call<ArrayList<ReviewItem>> getReviewById(@Field("id") int id);
+
+    @GET("/restaurant/distance")
+    Call<ArrayList<RestaurantItem>> getListDistanceOrder(@Query("user_latitude") double userLatitude,
+                                                        @Query("user_longitude") double userLongitude);
 
 
 }
