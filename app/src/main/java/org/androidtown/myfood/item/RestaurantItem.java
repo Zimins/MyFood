@@ -15,13 +15,16 @@ public class RestaurantItem implements Serializable{
     public String contact;
     public double user_distance_meter;
 
-    public int latitude;
-    public int longtitude;
+    public float latitude;
+    public float longitude;
 
-    public RestaurantItem(int id,String name,String imgSrc){
+    public RestaurantItem(int id,String name,String imgSrc,float latitude,float longitude){
         this.id = id;
         this.name = name;
         this.imgSrc = imgSrc;
+        this.latitude = latitude;
+        this.longitude = longitude;
+
     }
 
     @Override
