@@ -78,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp">
             <TextView
+                android:id="@+id/restaurant_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text = "이곳은 이런 식당입니다. 맛은 별로일지 모르지만 최고의 서비스로 모시겠습니다 "/>

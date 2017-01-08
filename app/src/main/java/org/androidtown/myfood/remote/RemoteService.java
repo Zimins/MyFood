@@ -20,8 +20,8 @@ import retrofit2.http.Query;
 
 public interface RemoteService {
 
-    //String BASE_URL = "http://whattoeat.c2po0cpkoles.us-west-2.rds.amazonaws.com";
-    String BASE_URL = "http://172.30.1.50:3000";
+    String BASE_URL = "http://sample-env.3x7naibynm.us-west-2.elasticbeanstalk.com/";
+    //String BASE_URL = "http://172.30.1.50:3000";
     String MEMBER_ICON_URL = BASE_URL + "/member/";
     String IMAGE_URL = BASE_URL + "/img/";
 
@@ -30,7 +30,7 @@ public interface RemoteService {
     Call<String> insertReview(@Body ReviewItem reviewItem);
 
     @GET("/restaurant/info/{id}")
-    Call<RestaurantItem> getRaiting(@Path("id") int id);
+    Call<RestaurantItem> getRestarantInfo(@Path("id") int id);
 
     @FormUrlEncoded
     @POST("/restaurant/category")
