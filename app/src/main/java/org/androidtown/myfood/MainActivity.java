@@ -1,10 +1,13 @@
 package org.androidtown.myfood;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -42,15 +45,20 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.androidtown.myfood.adapter.BottomDrawerAdapter;
 import org.androidtown.myfood.adapter.ViewPagerAdapter;
-import org.androidtown.myfood.item.BottomDrawerItem;
+import org.androidtown.myfood.item.LocationItem;
 import org.androidtown.myfood.item.RestaurantItem;
+import org.androidtown.myfood.remote.RemoteService;
+import org.androidtown.myfood.remote.ServiceGenerator;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static org.androidtown.myfood.R.id.content_in;
 
@@ -59,8 +67,8 @@ public class MainActivity extends AppCompatActivity
 
 
     private SlidingUpPanelLayout mLayout;
-    List<BottomDrawerItem> list;
-    ArrayList<RestaurantItem> restaurantItems;
+
+    ArrayList<RestaurantItem> nearRestaurantItems = new ArrayList<RestaurantItem>();
     Handler handler = new Handler();
     Timer timer;
     ViewPager pager;
@@ -129,18 +137,50 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        initBottomDrawer();
+
+
+        startLocationService();
+
+        createBotItemList();
+
+        //initBottomDrawer();
 
     }
 
+
+
     //bot item init
-    private List<RestaurantItem> createBotItemList() {
-        List<RestaurantItem> items = new ArrayList<>();
-                items.add(new RestaurantItem(1,"중화민족", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReuHcbXLNSxyyfUyQHgpfkXgy04vRsF354l007A3orC26cR3WIqg"));
-                items.add(new RestaurantItem(2,"후쿠함바그", "http://cfile2.uf.tistory.com/image/2267D637554E462606FA65"));
-                items.add(new RestaurantItem(3,"베라베라","http://webzinepro.com/_upload/content/images/1348198806_baskin-logo.jpg"));
-                items.add(new RestaurantItem(4,"정글포차","http://foodmoa.co.kr/data/file/food/1410/BRT0264211_1738550_FFpKw1JwzKq.jpg"));
-        return items;
+    private void createBotItemList() {
+
+
+        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
+        Call<ArrayList<RestaurantItem>> call = remoteService.getListDistanceOrder(LocationItem.knownLatitude, LocationItem.knownLongitude);
+
+        ArrayList<RestaurantItem> list = nearRestaurantItems;
+
+        call.enqueue(new Callback<ArrayList<RestaurantItem>>() {
+
+
+            @Override
+            public void onResponse(Call<ArrayList<RestaurantItem>> call, Response<ArrayList<RestaurantItem>> response) {
+                nearRestaurantItems = response.body();
+                initBottomDrawer();
+                return;
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<RestaurantItem>> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+
+        });
+
+//                items.add(new RestaurantItem(1,"중화민족", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReuHcbXLNSxyyfUyQHgpfkXgy04vRsF354l007A3orC26cR3WIqg"));
+//                items.add(new RestaurantItem(2,"후쿠함바그", "http://cfile2.uf.tistory.com/image/2267D637554E462606FA65"));
+//                items.add(new RestaurantItem(3,"베라베라","http://webzinepro.com/_upload/content/images/1348198806_baskin-logo.jpg"));
+//                items.add(new RestaurantItem(4,"정글포차","http://foodmoa.co.kr/data/file/food/1410/BRT0264211_1738550_FFpKw1JwzKq.jpg"));
+
     }
 
 
@@ -330,7 +370,7 @@ public class MainActivity extends AppCompatActivity
     public void initBottomDrawer(){
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.bot_list);
-        BottomDrawerAdapter adapter = new BottomDrawerAdapter(this, createBotItemList(), R.layout.bottom_item,MainActivity.this);
+        BottomDrawerAdapter adapter = new BottomDrawerAdapter(this, nearRestaurantItems, R.layout.bottom_item,MainActivity.this);
         recyclerView.setAdapter(adapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this,3);
         recyclerView.setLayoutManager(layoutManager);
@@ -338,6 +378,30 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    public void startLocationService(){
+        LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        Location location = null;
+        int result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+
+         if (result == PackageManager.PERMISSION_GRANTED) {
+             Log.d("location","permisson granted");
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+         }
+
+        if (location != null) {
+            Log.d("location","location is not null");
+            LocationItem.knownLatitude = location.getLatitude();
+            LocationItem.knownLongitude = location.getLongitude();
+
+        } else {
+            //서울 설정
+            LocationItem.knownLatitude = 37.566229;
+            LocationItem.knownLongitude = 126.977689;
+        }
+
+    }
 
     @Override
     protected void onStart() {

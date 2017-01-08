@@ -10,17 +10,28 @@ public class RestaurantItem implements Serializable{
 
     public int id;
     public String name;
-    public int raiting;
+    public float rating;
     public String imgSrc;
     public String contact;
+    public double user_distance_meter;
+    public String summary;
+    public int isSmoke;
+    public int isParking;
 
-//  public int latitude;
-//  public int longtitude;
+    public float latitude;
+    public float longitude;
 
-    public RestaurantItem(int id,String name,String imgSrc){
+    public RestaurantItem(int id,String name,String imgSrc,float latitude,float longitude,String summary,int isSmoke,int isParking,float rating){
         this.id = id;
         this.name = name;
         this.imgSrc = imgSrc;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.summary = summary;
+        this.isSmoke = isSmoke;
+        this.isParking = isParking;
+        this.rating = rating;
+
     }
 
     @Override
@@ -28,7 +39,7 @@ public class RestaurantItem implements Serializable{
         return "RestaurantItem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", raiting=" + raiting +
+
                 '}';
     }
 
@@ -48,13 +59,6 @@ public class RestaurantItem implements Serializable{
         this.name = name;
     }
 
-    public int getRaiting() {
-        return raiting;
-    }
-
-    public void setRaiting(int raiting) {
-        this.raiting = raiting;
-    }
 
     public String getImgSrc() {
         return imgSrc;
@@ -62,5 +66,17 @@ public class RestaurantItem implements Serializable{
 
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public double getUser_distance_meter() {
+        return user_distance_meter;
+    }
+
+    public float getLongitude() {
+        return longitude;
     }
 }

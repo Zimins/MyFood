@@ -32,6 +32,8 @@ public class RestaurantActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +113,9 @@ public class RestaurantActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             Fragment f = null;
             if(position==0){
-
+                bundle.putSerializable("restaurantItem",restaurantItem);
                 f=new RestaurantInfoFragment();
+                f.setArguments(bundle);
 
             }else if(position==1){
                 bundle.putInt("id",restaurantItem.id);
