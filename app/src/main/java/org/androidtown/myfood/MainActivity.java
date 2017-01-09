@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-        //toolbar code
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -108,9 +107,6 @@ public class MainActivity extends AppCompatActivity
 
         getPermissions();
 
-        //buildGoogleApiClient();
-
-        //hot pager
         pager = (ViewPager) findViewById(R.id.hot_pager);
         ViewPagerAdapter hotAdapter = new ViewPagerAdapter(this);
         pager.setAdapter(hotAdapter);
@@ -199,7 +195,7 @@ public class MainActivity extends AppCompatActivity
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         }else{
             Snackbar askQuit = Snackbar.make(findViewById(R.id.content_in),
-                    "종료하시겠습니까?",Snackbar.LENGTH_LONG).setAction("그래꺼져",new View.OnClickListener(){
+                    "종료하시겠습니까?",Snackbar.LENGTH_LONG).setAction("확인",new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
                     finish();
