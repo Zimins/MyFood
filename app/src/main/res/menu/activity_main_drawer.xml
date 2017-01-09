@@ -5,13 +5,16 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/hot"
-            android:title="HOT" />
+            android:id="@+id/create_group"
+            android:title="그룹 생성하기" />
+
         <item
-            android:id="@+id/account"
-            android:title="계정" />
+            android:id="@+id/group_choice"
+            android:title="그룹 선택하기" />
 
-
+        <item
+            android:id="@+id/suggestions"
+            android:title="추천 식당 조회" />
 
     </group>
 
