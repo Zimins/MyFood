@@ -5,6 +5,10 @@
 > 사용자끼리 그룹을 만들어 식당을 추천
 
 # preview
+![mf_home_demo](https://cloud.githubusercontent.com/assets/3432994/26346578/a1ca205a-3fe1-11e7-83c2-0e2c46154d85.gif)
+![mf_search_demo](https://cloud.githubusercontent.com/assets/3432994/26346592/aac1ce92-3fe1-11e7-8b3e-3497b9623ad0.gif)
+![mf_info_demo](https://cloud.githubusercontent.com/assets/3432994/26346614/bdf13c96-3fe1-11e7-88a6-e5510a6bf454.gif)
+
 
 # Development Env
 
